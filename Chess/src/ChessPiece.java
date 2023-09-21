@@ -1,14 +1,27 @@
-import java.awt.*;
-
-public abstract class ChessPiece {
-    private PieceType type;
+public class ChessPiece {
     private Color color;
-    private Coordinate position;
+    private PieceType pieceType;
 
-    public ChessPiece(PieceType type, Color color, Coordinate position) {
-        // Initialize the piece
+    public ChessPiece(Color color, PieceType pieceType) {
+        this.color = color;
+        this.pieceType = pieceType;
     }
 
-    public abstract boolean isValidMove(Coordinate destination, ChessBoard board);
+    public Color getColor() {
+        return color;
+    }
 
+    public PieceType getPieceType() {
+        return pieceType;
+    }
+
+    public boolean isValidMove(Square from, Square to, ChessBoard board) {
+        // Implement piece-specific move validation logic
+        return false;
+    }
+
+    public boolean move(Square from, Square to, ChessBoard board) {
+        // Implement piece-specific move execution logic
+        return false;
+    }
 }
