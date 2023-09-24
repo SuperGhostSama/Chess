@@ -7,19 +7,28 @@ public class Pawn {
         this.isWhite = isWhite;
     }
 
-    public boolean isValidMove(int currentRow, int currentCol, int newRow, int newCol) {
+    public boolean isValidMove(int currentRow, int currentCol, int newRow, int newCol, String[][] board) {
         int rowChange = newRow - currentRow;
         int colChange = Math.abs(newCol - currentCol);
 
         if (isWhite) {
             // White pawns move forward one square (from lower row number to higher row number)
-
-            return rowChange == 1 && colChange == 0;
+            if (rowChange == 1 && colChange == 0) {
+                // Check if the square in front of the pawn is empty
+                return board[newRow][newCol].equals(" ");
+            } else {
+                return false;
+            }
         } else {
             // Black pawns move forward one square (from higher row number to lower row number)
-            return rowChange == -1 && colChange == 0;
-
+            if (rowChange == -1 && colChange == 0) {
+                // Check if the square in front of the pawn is empty
+                return board[newRow][newCol].equals(" ");
+            } else {
+                return false;
+            }
         }
     }
+
 
 }

@@ -189,7 +189,7 @@ public class ChessGame {
         switch (pieceType) {
             case "Pawn" -> {
                 Pawn pawn = new Pawn(isWhiteTurn);
-                return pawn.isValidMove(fromRow, fromCol, toRow, toCol);
+                return pawn.isValidMove(fromRow, fromCol, toRow, toCol, board);
             }
             case "Rook" -> {
                 Rook rook = new Rook(isWhiteTurn);
