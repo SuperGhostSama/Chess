@@ -1,3 +1,7 @@
+package chess;
+
+import chess.game.ChessGame;
+
 import java.util.Scanner;
 
 public class Main {
@@ -16,7 +20,8 @@ public class Main {
             switch (choice) {
                 case 1:
                     // Start a new game
-                    startNewGame();
+                    ChessGame chessGame = new ChessGame();
+                    chessGame.displayBoard(); // Display the initial chessboard
                     break;
                 case 2:
                     // View saved games (implement this functionality)
@@ -32,11 +37,6 @@ public class Main {
                     break;
             }
         }
-    }
-
-    private static void startNewGame() {
-        // Implement the logic to start a new chess game
-        System.out.println("Starting a new game...");
     }
 
     private static void viewSavedGames() {
