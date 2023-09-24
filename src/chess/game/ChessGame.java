@@ -1,9 +1,13 @@
 package chess.game;
 
+
+import chess.pieces.*;
+
 import java.util.Scanner;
 
 public class ChessGame {
     private String[][] board;
+    private boolean isWhiteTurn;
 
     public ChessGame() {
         // Initialize the chessboard
@@ -12,32 +16,32 @@ public class ChessGame {
     }
 
     private void setupInitialPosition() {
-        // Initialize black pieces
-        board[0][0] = "r"; // Black Rook
-        board[0][1] = "n"; // Black Knight
-        board[0][2] = "b"; // Black Bishop
-        board[0][3] = "q"; // Black Queen
-        board[0][4] = "k"; // Black King
-        board[0][5] = "b"; // Black Bishop
-        board[0][6] = "n"; // Black Knight
-        board[0][7] = "r"; // Black Rook
+        // Initialize white pieces
+        board[0][0] = "r"; // White Rook
+        board[0][1] = "n"; // White Knight
+        board[0][2] = "b"; // White Bishop
+        board[0][3] = "q"; // White Queen
+        board[0][4] = "k"; // White King
+        board[0][5] = "b"; // White Bishop
+        board[0][6] = "n"; // White Knight
+        board[0][7] = "r"; // White Rook
 
         for (int col = 0; col < 8; col++) {
-            board[1][col] = "p"; // Black Pawns
+            board[1][col] = "p"; // White Pawns
         }
 
-        // Initialize white pieces
-        board[7][0] = "R"; // White Rook
-        board[7][1] = "N"; // White Knight
-        board[7][2] = "B"; // White Bishop
-        board[7][3] = "Q"; // White Queen
-        board[7][4] = "K"; // White King
-        board[7][5] = "B"; // White Bishop
-        board[7][6] = "N"; // White Knight
-        board[7][7] = "R"; // White Rook
+        // Initialize black pieces
+        board[7][0] = "R"; // Black Rook
+        board[7][1] = "N"; // Black Knight
+        board[7][2] = "B"; // Black Bishop
+        board[7][3] = "Q"; // Black Queen
+        board[7][4] = "K"; // Black King
+        board[7][5] = "B"; // Black Bishop
+        board[7][6] = "N"; // Black Knight
+        board[7][7] = "R"; // Black Rook
 
         for (int col = 0; col < 8; col++) {
-            board[6][col] = "P"; // White Pawns
+            board[6][col] = "P"; // Black Pawns
         }
 
         // Fill the remaining squares with empty squares
@@ -51,25 +55,30 @@ public class ChessGame {
     public void displayBoard() {
         System.out.println("   a  b  c  d  e  f  g  h "); // Column labels
 
-        for (int row = 0; row < 8; row++) {
-            System.out.print(8 - row + " "); // Row label
+        for (int row = 7; row >= 0; row--) { // Start from 7 (row 8) and go down to 0 (row 1)
+            System.out.print((row + 1) + " "); // Row label (add 1 to row to start from 1)
 
             for (int col = 0; col < 8; col++) {
                 String piece = board[row][col];
                 System.out.print("|" + piece + "|");
             }
-            System.out.print(" " + (8 - row)); // Row label (right side)
+            System.out.print(" " + (row + 1)); // Row label (right side)
             System.out.println();
         }
 
         System.out.println("   a  b  c  d  e  f  g  h "); // Column labels
     }
 
+
+    private boolean isValidSquare(int row, int col) {
+        return row >= 0 && row < 8 && col >= 0 && col < 8;
+    }
+
     public void startNewGame() {
         System.out.println("Starting a new game. White player goes first.");
 
         Scanner scanner = new Scanner(System.in);
-        boolean isWhiteTurn = true;
+        isWhiteTurn = true;
 
         while (true) {
             displayBoard(); // Display the board before each player's turn
@@ -82,13 +91,13 @@ public class ChessGame {
             String fromSquare = scanner.nextLine();
 
             // Extract the row and column from 'fromSquare'
-            int row, col;
+            int fromRow, fromCol;
             try {
                 char columnChar = fromSquare.charAt(0);
-                row = Character.getNumericValue(fromSquare.charAt(1)) - 1; // Adjust for 0-based indexing
+                fromRow = Character.getNumericValue(fromSquare.charAt(1)) - 1; // Adjust for 0-based indexing
 
                 // Map columnChar to column index
-                col = switch (columnChar) {
+                fromCol = switch (columnChar) {
                     case 'a' -> 0;
                     case 'b' -> 1;
                     case 'c' -> 2;
@@ -101,7 +110,7 @@ public class ChessGame {
                 };
 
                 // Check if the extracted row and column values are within the valid range
-                if (row < 0 || row > 7) {
+                if (!isValidSquare(fromRow, fromCol)) {
                     throw new IllegalArgumentException("Invalid row or column value.");
                 }
             } catch (Exception e) {
@@ -109,9 +118,9 @@ public class ChessGame {
                 continue; // Ask for input again
             }
 
-            // Now you have 'row' and 'col' representing the selected square
+            // Now you have 'fromRow' and 'fromCol' representing the selected square
             // Call the getPieceType method to identify the type of piece on that square
-            String pieceType = getPieceType(row, col, isWhiteTurn);
+            String pieceType = getPieceType(fromRow, fromCol, isWhiteTurn);
 
             if ("Empty".equals(pieceType)) {
                 System.out.println("The selected square is empty. Please choose a square with a chess piece.");
@@ -127,13 +136,89 @@ public class ChessGame {
             System.out.print("Enter the destination square (e.g., 'e4'): ");
             String toSquare = scanner.nextLine();
 
-            // Validate the input, implement move logic, and update the board
-            // Example: You can add a method like "makeMove" to handle the move logic
+            // Extract the row and column from 'toSquare'
+            int toRow, toCol;
+            try {
+                char columnChar = toSquare.charAt(0);
+                toRow = Character.getNumericValue(toSquare.charAt(1)) - 1; // Adjust for 0-based indexing
+
+                // Map columnChar to column index
+                toCol = switch (columnChar) {
+                    case 'a' -> 0;
+                    case 'b' -> 1;
+                    case 'c' -> 2;
+                    case 'd' -> 3;
+                    case 'e' -> 4;
+                    case 'f' -> 5;
+                    case 'g' -> 6;
+                    case 'h' -> 7;
+                    default -> throw new IllegalArgumentException("Invalid column character.");
+                };
+
+                // Check if the extracted row and column values are within the valid range
+                if (!isValidSquare(toRow, toCol)) {
+                    throw new IllegalArgumentException("Invalid row or column value.");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid square format. Please enter a valid square (e.g., 'e2').");
+                continue; // Ask for input again
+            }
+
+            // Check if the selected piece can move to the destination square
+            boolean isValidMove = isValidMove(fromRow, fromCol, toRow, toCol, pieceType);
+
+            if (isValidMove) {
+                System.out.println("Valid move. The " + pieceType + " can move to " + toSquare + ".");
+                // Implement the move logic here
+                // Update the board based on the move
+                board[toRow][toCol] = board[fromRow][fromCol];
+                board[fromRow][fromCol] = " "; // Empty the old square
+            } else {
+                System.out.println("Invalid move. The " + pieceType + " cannot move to " + toSquare + ".");
+                continue; // Ask for input again
+            }
 
             // Toggle player turn
             isWhiteTurn = !isWhiteTurn;
         }
     }
+
+
+    private boolean isValidMove(int fromRow, int fromCol, int toRow, int toCol, String pieceType) {
+        // Check if the move is valid for the given chess piece type
+        switch (pieceType) {
+            case "Pawn" -> {
+                Pawn pawn = new Pawn(isWhiteTurn);
+                return pawn.isValidMove(fromRow, fromCol, toRow, toCol);
+            }
+            case "Rook" -> {
+                Rook rook = new Rook(isWhiteTurn);
+                return rook.isValidMove(fromRow, fromCol, toRow, toCol);
+            }
+            case "Knight" -> {
+                Knight knight = new Knight(isWhiteTurn);
+                return knight.isValidMove(fromRow, fromCol, toRow, toCol);
+            }
+            case "Bishop" -> {
+                Bishop bishop = new Bishop(isWhiteTurn);
+                return bishop.isValidMove(fromRow, fromCol, toRow, toCol);
+            }
+            case "Queen" -> {
+                Queen queen = new Queen(isWhiteTurn);
+                return queen.isValidMove(fromRow, fromCol, toRow, toCol);
+            }
+            case "King" -> {
+                King king = new King(isWhiteTurn);
+                return king.isValidMove(fromRow, fromCol, toRow, toCol);
+            }
+            default -> {
+                return false; // Unknown piece type or invalid move
+            }
+        }
+    }
+
+
+
 
     public String getPieceType(int row, int col, boolean isWhiteTurn) {
         String piece = board[row][col];

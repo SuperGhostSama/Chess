@@ -7,15 +7,12 @@ public class Queen {
         this.isWhite = isWhite;
     }
 
-    public boolean isValidMove(int currentRow, int currentCol, int newRow, int newCol, boolean isCapturing) {
+    public boolean isValidMove(int currentRow, int currentCol, int newRow, int newCol) {
         int rowChange = Math.abs(newRow - currentRow);
         int colChange = Math.abs(newCol - currentCol);
 
-        // Queens can move horizontally, vertically, or diagonally any number of squares
-        if (rowChange == colChange || currentRow == newRow || currentCol == newCol) {
-            return true;
-        } else {
-            return false; // Invalid move
-        }
+        // Queens can move vertically, horizontally, or diagonally any number of squares
+        return rowChange == 0 || colChange == 0 || rowChange == colChange;
     }
+
 }

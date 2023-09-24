@@ -7,15 +7,12 @@ public class Rook {
         this.isWhite = isWhite;
     }
 
-    public boolean isValidMove(int currentRow, int currentCol, int newRow, int newCol, boolean isCapturing) {
-        int rowChange = Math.abs(newRow - currentRow);
-        int colChange = Math.abs(newCol - currentCol);
+    public boolean isValidMove(int currentRow, int currentCol, int newRow, int newCol) {
+        int rowChange = newRow - currentRow;
+        int colChange = newCol - currentCol;
 
-        // Rooks can move horizontally or vertically any number of squares
-        if (currentRow == newRow || currentCol == newCol) {
-            return true;
-        } else {
-            return false; // Invalid move
-        }
+        // Rooks can move vertically or horizontally any number of squares
+        return rowChange == 0 || colChange == 0;
     }
+
 }

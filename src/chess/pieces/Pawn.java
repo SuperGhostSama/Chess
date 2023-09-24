@@ -7,31 +7,19 @@ public class Pawn {
         this.isWhite = isWhite;
     }
 
-    public boolean isValidMove(int currentRow, int currentCol, int newRow, int newCol, boolean isCapturing) {
-        int rowChange = Math.abs(newRow - currentRow);
+    public boolean isValidMove(int currentRow, int currentCol, int newRow, int newCol) {
+        int rowChange = newRow - currentRow;
         int colChange = Math.abs(newCol - currentCol);
 
-        // Pawns can move forward one square or capture diagonally one square
         if (isWhite) {
-            if (currentRow - newRow == 1) {
-                // Moving forward one square
-                return !isCapturing && colChange == 0;
-            } else if (currentRow - newRow == 1 && colChange == 1) {
-                // Capturing diagonally
-                return isCapturing;
-            } else {
-                return false; // Invalid move
-            }
+            // White pawns move forward one square (from lower row number to higher row number)
+
+            return rowChange == 1 && colChange == 0;
         } else {
-            if (newRow - currentRow == 1) {
-                // Moving forward one square
-                return !isCapturing && colChange == 0;
-            } else if (newRow - currentRow == 1 && colChange == 1) {
-                // Capturing diagonally
-                return isCapturing;
-            } else {
-                return false; // Invalid move
-            }
+            // Black pawns move forward one square (from higher row number to lower row number)
+            return rowChange == -1 && colChange == 0;
+
         }
     }
+
 }

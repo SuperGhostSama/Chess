@@ -7,15 +7,12 @@ public class Bishop {
         this.isWhite = isWhite;
     }
 
-    public boolean isValidMove(int currentRow, int currentCol, int newRow, int newCol, boolean isCapturing) {
+    public boolean isValidMove(int currentRow, int currentCol, int newRow, int newCol) {
         int rowChange = Math.abs(newRow - currentRow);
         int colChange = Math.abs(newCol - currentCol);
 
-        // Bishops can move diagonally any number of squares
-        if (rowChange == colChange) {
-            return true;
-        } else {
-            return false; // Invalid move
-        }
+        // Bishops move diagonally any number of squares
+        return rowChange == colChange;
     }
+
 }
