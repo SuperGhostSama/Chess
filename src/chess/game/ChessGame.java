@@ -77,7 +77,7 @@ public class ChessGame {
             String playerColor = isWhiteTurn ? "White" : "Black";
             System.out.println(playerColor + " player's turn.");
 
-            //FromSquare
+            // FromSquare
             System.out.print("Enter the square/chess piece to move (e.g., 'e2'): ");
             String fromSquare = scanner.nextLine();
 
@@ -109,34 +109,21 @@ public class ChessGame {
                 continue; // Ask for input again
             }
 
-
             // Now you have 'row' and 'col' representing the selected square
             // Call the getPieceType method to identify the type of piece on that square
-            String pieceType = getPieceType(row, col);
+            String pieceType = getPieceType(row, col, isWhiteTurn);
 
             if ("Empty".equals(pieceType)) {
                 System.out.println("The selected square is empty. Please choose a square with a chess piece.");
+                continue; // Ask for input again
+            } else if ("Opponent's Piece".equals(pieceType)) {
+                System.out.println("You can only move your own pieces.");
                 continue; // Ask for input again
             }
 
             System.out.println("You selected a " + pieceType + " on the square.");
 
-            // Continue with the rest of the move and game logic
-            // ...
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //ToSquare
+            // ToSquare
             System.out.print("Enter the destination square (e.g., 'e4'): ");
             String toSquare = scanner.nextLine();
 
@@ -148,28 +135,36 @@ public class ChessGame {
         }
     }
 
-    public String getPieceType(int row, int col) {
+    public String getPieceType(int row, int col, boolean isWhiteTurn) {
         String piece = board[row][col];
         if (piece != null && !piece.trim().isEmpty()) {
-            // If the square is not empty, return the type of piece (e.g., "Pawn", "King", etc.)
-            switch (piece) {
-                case "P": return "Pawn";
-                case "R": return "Rook";
-                case "N": return "Knight";
-                case "B": return "Bishop";
-                case "Q": return "Queen";
-                case "K": return "King";
-                case "p": return "Pawn";
-                case "r": return "Rook";
-                case "n": return "Knight";
-                case "b": return "Bishop";
-                case "q": return "Queen";
-                case "k": return "King";
-                default: return "Unknown";
+            // Determine the piece color (uppercase for black, lowercase for white)
+            char pieceColor = Character.isUpperCase(piece.charAt(0)) ? 'B' : 'W';
+
+            // Determine the current player's color
+            char currentPlayerColor = isWhiteTurn ? 'W' : 'B';
+
+            // Check if the square contains a piece of the current player's color
+            if (pieceColor == currentPlayerColor) {
+                // If the square is not empty and belongs to the current player, return the type of piece
+                switch (piece.toUpperCase()) {
+                    case "P": return "Pawn";
+                    case "R": return "Rook";
+                    case "N": return "Knight";
+                    case "B": return "Bishop";
+                    case "Q": return "Queen";
+                    case "K": return "King";
+                    default: return "Unknown";
+                }
+            } else {
+                return "Opponent's Piece"; // Piece belongs to the opponent
             }
         }
         return "Empty";
     }
+
+
+
 
 
 }
