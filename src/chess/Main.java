@@ -21,7 +21,7 @@ public class Main {
                 case 1:
                     // Start a new game
                     ChessGame chessGame = new ChessGame();
-                    chessGame.displayBoard(); // Display the initial chessboard
+                    chessGame.startNewGame();
                     break;
                 case 2:
                     // View saved games (implement this functionality)
@@ -38,6 +38,8 @@ public class Main {
             }
         }
     }
+
+
 
     private static void viewSavedGames() {
         // Implement the logic to view saved games
