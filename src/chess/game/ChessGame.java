@@ -205,7 +205,7 @@ public class ChessGame {
             }
             case "Queen" -> {
                 Queen queen = new Queen(isWhiteTurn);
-                return queen.isValidMove(fromRow, fromCol, toRow, toCol);
+                return queen.isValidMove(fromRow, fromCol, toRow, toCol, board);
             }
             case "King" -> {
                 King king = new King(isWhiteTurn);
