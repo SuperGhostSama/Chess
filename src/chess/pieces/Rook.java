@@ -7,12 +7,36 @@ public class Rook {
         this.isWhite = isWhite;
     }
 
-    public boolean isValidMove(int currentRow, int currentCol, int newRow, int newCol) {
+    public boolean isValidMove(int currentRow, int currentCol, int newRow, int newCol, String[][] board) {
         int rowChange = newRow - currentRow;
         int colChange = newCol - currentCol;
 
-        // Rooks can move vertically or horizontally any number of squares
-        return rowChange == 0 || colChange == 0;
+        if (rowChange == 0 && colChange <= 8) {
+            int step = newCol > currentCol ? 1 : -1;
+            int col = currentCol + step;
+            while (col != newCol) {
+                if (!board[currentRow][col].equals(" ")) {
+                    return false; // There's a non-empty square in the path
+                }
+                col += step;
+            }
+        } else if (colChange == 0 && rowChange <= 8) {
+            int step = newRow > currentRow ? 1 : -1;
+            int row = currentRow + step;
+            while (row != newRow) {
+                if (!board[row][currentCol].equals(" ")) {
+                    return false; // There's a non-empty square in the path
+                }
+                row += step;
+            }
+        } else {
+            return false; // Rook is not moving vertically or horizontally within the specified range
+        }
+
+        // Check if the target square is empty
+        return board[newRow][newCol].equals(" ");
     }
 
+
 }
+

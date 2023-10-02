@@ -193,7 +193,7 @@ public class ChessGame {
             }
             case "Rook" -> {
                 Rook rook = new Rook(isWhiteTurn);
-                return rook.isValidMove(fromRow, fromCol, toRow, toCol);
+                return rook.isValidMove(fromRow, fromCol, toRow, toCol, board);
             }
             case "Knight" -> {
                 Knight knight = new Knight(isWhiteTurn);
