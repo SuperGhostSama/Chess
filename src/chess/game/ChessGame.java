@@ -201,7 +201,7 @@ public class ChessGame {
             }
             case "Bishop" -> {
                 Bishop bishop = new Bishop(isWhiteTurn);
-                return bishop.isValidMove(fromRow, fromCol, toRow, toCol);
+                return bishop.isValidMove(fromRow, fromCol, toRow, toCol, board);
             }
             case "Queen" -> {
                 Queen queen = new Queen(isWhiteTurn);
