@@ -209,7 +209,7 @@ public class ChessGame {
             }
             case "King" -> {
                 King king = new King(isWhiteTurn);
-                return king.isValidMove(fromRow, fromCol, toRow, toCol);
+                return king.isValidMove(fromRow, fromCol, toRow, toCol, board);
             }
             default -> {
                 return false; // Unknown piece type or invalid move
