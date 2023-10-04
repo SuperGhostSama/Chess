@@ -30,9 +30,17 @@ public class Bishop {
             col += colStep;
         }
 
-        // Check if the target square is empty
-        return board[newRow][newCol].equals(" ");
+        // Check if the target square is empty or contains a piece of the opposite color
+        String targetPiece = board[newRow][newCol];
+        if (targetPiece.equals(" ")) {
+            return true; // Move to an empty square
+        } else if (isWhite && Character.isUpperCase(targetPiece.charAt(0))) {
+            return true; // White bishop can capture a black piece
+        } else if (!isWhite && Character.isLowerCase(targetPiece.charAt(0))) {
+            return true; // Black bishop can capture a white piece
+        }
+
+        return false;
     }
-
-
 }
+
