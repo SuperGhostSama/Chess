@@ -1,7 +1,7 @@
 package chess.pieces;
 
 public class King {
-    private boolean isWhite; // Indicates whether the king is white or black
+    private boolean isWhite;
 
     public King(boolean isWhite) {
         this.isWhite = isWhite;
@@ -13,12 +13,18 @@ public class King {
 
         // Kings can move one square in any direction
         if (rowChange <= 1 && colChange <= 1) {
-            // Check if the target square is empty
-            return board[newRow][newCol].equals(" ");
+            // Check if the target square is empty or contains a piece of the opposite color
+            String targetPiece = board[newRow][newCol];
+            if (targetPiece.equals(" ")) {
+                return true; // Move to an empty square
+            } else if (isWhite && Character.isUpperCase(targetPiece.charAt(0))) {
+                return true; // White king can capture a black piece
+            } else if (!isWhite && Character.isLowerCase(targetPiece.charAt(0))) {
+                return true; // Black king can capture a white piece
+            }
         }
 
-        return false; // Invalid move
+        return false;
     }
-
-
 }
+
