@@ -62,6 +62,7 @@ public class Pawn {
                 } else if (rowChange == -1 && colChange == 1 && Character.isLowerCase(board[newRow][newCol].charAt(0))) {
                     return true;
                 }
+
             }
         }
         return false;
