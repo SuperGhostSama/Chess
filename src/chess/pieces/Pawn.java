@@ -22,11 +22,20 @@ public class Pawn {
                             return false;
                         }
                     }
-                    return board[newRow][newCol].equals(" ");
+                    // Check for capturing a piece diagonally to the top-left or top-right
+                    if (colChange == 0 && board[newRow][newCol].equals(" ")) {
+                        return true;
+                    } else if (colChange == 1 && Character.isUpperCase(board[newRow][newCol].charAt(0))) {
+                        return true;
+                    }
                 }
             } else {
                 // White pawns in other rows can only move forward one square
-                return rowChange == 1 && colChange == 0 && board[newRow][newCol].equals(" ");
+                if (rowChange == 1 && colChange == 0 && board[newRow][newCol].equals(" ")) {
+                    return true;
+                } else if (rowChange == 1 && colChange == 1 && Character.isUpperCase(board[newRow][newCol].charAt(0))) {
+                    return true;
+                }
             }
         } else {
             // Black pawns move forward one or two squares from row 7 (index 6)
@@ -39,11 +48,20 @@ public class Pawn {
                             return false;
                         }
                     }
-                    return board[newRow][newCol].equals(" ");
+                    // Check for capturing a piece diagonally to the top-left or top-right
+                    if (colChange == 0 && board[newRow][newCol].equals(" ")) {
+                        return true;
+                    } else if (colChange == 1 && Character.isLowerCase(board[newRow][newCol].charAt(0))) {
+                        return true;
+                    }
                 }
             } else {
                 // Black pawns in other rows can only move forward one square
-                return rowChange == -1 && colChange == 0 && board[newRow][newCol].equals(" ");
+                if (rowChange == -1 && colChange == 0 && board[newRow][newCol].equals(" ")) {
+                    return true;
+                } else if (rowChange == -1 && colChange == 1 && Character.isLowerCase(board[newRow][newCol].charAt(0))) {
+                    return true;
+                }
             }
         }
         return false;

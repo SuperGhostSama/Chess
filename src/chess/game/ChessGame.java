@@ -99,9 +99,10 @@ public class ChessGame {
         isWhiteTurn = true;
 
         while (true) {
+
             displayCapturedByWhite(capturedByWhite);
             displayCapturedByBlack(capturedByBlack);
-            displayBoard(); // Display the board before each player's turn
+            displayBoard();
 
             String playerColor = isWhiteTurn ? "White" : "Black";
             System.out.println(playerColor + " player's turn.");
