@@ -3,10 +3,13 @@ package chess.game;
 
 import chess.pieces.*;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class ChessGame {
     private String[][] board;
+    private String[] capturedByWhite = { } ;
+    private String[] capturedByBlack= { };
     private boolean isWhiteTurn;
 
     public ChessGame() {
@@ -69,6 +72,21 @@ public class ChessGame {
         System.out.println("   a  b  c  d  e  f  g  h "); // Column labels
     }
 
+    public static void displayCapturedByWhite(String[] capturedByWhite) {
+        if (capturedByWhite.length == 0) {
+            System.out.println("White has captured: [ ]");
+        } else {
+            System.out.println("White has captured: " + Arrays.toString(capturedByWhite));
+        }
+    }
+
+    public static void displayCapturedByBlack(String[] capturedByBlack) {
+        if (capturedByBlack.length == 0) {
+            System.out.println("Black has captured: [ ]");
+        } else {
+            System.out.println("Black has captured: " + Arrays.toString(capturedByBlack));
+        }
+    }
 
     private boolean isValidSquare(int row, int col) {
         return row >= 0 && row < 8 && col >= 0 && col < 8;
@@ -81,6 +99,8 @@ public class ChessGame {
         isWhiteTurn = true;
 
         while (true) {
+            displayCapturedByWhite(capturedByWhite);
+            displayCapturedByBlack(capturedByBlack);
             displayBoard(); // Display the board before each player's turn
 
             String playerColor = isWhiteTurn ? "White" : "Black";
@@ -118,7 +138,6 @@ public class ChessGame {
                 continue; // Ask for input again
             }
 
-            // Now you have 'fromRow' and 'fromCol' representing the selected square
             // Call the getPieceType method to identify the type of piece on that square
             String pieceType = getPieceType(fromRow, fromCol, isWhiteTurn);
 
