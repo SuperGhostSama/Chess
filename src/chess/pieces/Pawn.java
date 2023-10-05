@@ -1,7 +1,7 @@
 package chess.pieces;
 
 public class Pawn {
-    private boolean isWhite; // Indicates whether the pawn is white or black
+    private boolean isWhite; // Verifies if the piece is white or black
 
     public Pawn(boolean isWhite) {
         this.isWhite = isWhite;
@@ -12,17 +12,17 @@ public class Pawn {
         int colChange = Math.abs(newCol - currentCol);
 
         if (isWhite) {
-            // White pawns move forward one or two squares from row 1 (index 0)
+            // White pawns move forward one or two squares from row 1 index 0
             if (currentRow == 1) {
                 if (rowChange == 1 || rowChange == 2) {
                     // Check if the square in front of the pawn is empty
                     if (rowChange == 2) {
-                        // Check that the squares in between are empty for a two-square move
+                        // Check that the squares in between are empty for a TwoSquare move
                         if (!board[currentRow + 1][currentCol].equals(" ") || !board[newRow][newCol].equals(" ")) {
                             return false;
                         }
                     }
-                    // Check for capturing a piece diagonally to the top-left or top-right
+                    // Check for capturing a piece diagonally to the TopLeft or TopRight
                     if (colChange == 0 && board[newRow][newCol].equals(" ")) {
                         return true;
                     } else if (colChange == 1 && Character.isUpperCase(board[newRow][newCol].charAt(0))) {
@@ -38,17 +38,17 @@ public class Pawn {
                 }
             }
         } else {
-            // Black pawns move forward one or two squares from row 6 (index 5)
+            // Black pawns move forward one or two squares from row 6 index 5
             if (currentRow == 6) {
                 if (rowChange == -1 || rowChange == -2) {
                     // Check if the square in front of the pawn is empty
                     if (rowChange == -2) {
-                        // Check that the squares in between are empty for a two-square move
+                        // Check that the squares in between are empty for a TwoSquare move
                         if (!board[currentRow - 1][currentCol].equals(" ") || !board[newRow][newCol].equals(" ")) {
                             return false;
                         }
                     }
-                    // Check for capturing a piece diagonally to the top-left or top-right
+                    // Check for capturing a piece diagonally to the TopLeft or TopRight
                     if (colChange == 0 && board[newRow][newCol].equals(" ")) {
                         return true;
                     } else if (colChange == 1 && Character.isLowerCase(board[newRow][newCol].charAt(0))) {

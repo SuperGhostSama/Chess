@@ -1,7 +1,7 @@
 package chess.pieces;
 
 public class Bishop {
-    private boolean isWhite; // Indicates whether the bishop is white or black
+    private boolean isWhite; // Verifies if the piece is white or black
 
     public Bishop(boolean isWhite) {
         this.isWhite = isWhite;
@@ -24,7 +24,7 @@ public class Bishop {
         // Check all squares in the diagonal path
         while (row != newRow && col != newCol) {
             if (!board[row][col].equals(" ")) {
-                return false; // There's a non-empty square in the path
+                return false; // There is a square in the path thats not empty
             }
             row += rowStep;
             col += colStep;

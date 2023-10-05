@@ -1,7 +1,7 @@
 package chess.pieces;
 
 public class Rook {
-    private boolean isWhite; // Indicates whether the rook is white or black
+    private boolean isWhite; // Verifies if the piece is white or black
 
     public Rook(boolean isWhite) {
         this.isWhite = isWhite;

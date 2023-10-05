@@ -1,7 +1,7 @@
 package chess.pieces;
 
 public class King {
-    private boolean isWhite;
+    private boolean isWhite;// Verifies if the piece is white or black
 
     public King(boolean isWhite) {
         this.isWhite = isWhite;

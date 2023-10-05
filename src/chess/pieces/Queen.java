@@ -1,7 +1,7 @@
 package chess.pieces;
 
 public class Queen {
-    private boolean isWhite; // Indicates whether the queen is white or black
+    private boolean isWhite; // Verifies if the piece is white or black
 
     public Queen(boolean isWhite) {
         this.isWhite = isWhite;
@@ -38,7 +38,7 @@ public class Queen {
             }
         }
 
-        return false; // Invalid move
+        return false;
     }
 }
 

@@ -16,7 +16,7 @@ public class ChessGame {
     }
 
     private void setupInitialPosition() {
-        // Initialize white pieces
+        // White pieces
         board[0][0] = "r"; // White Rook
         board[0][1] = "n"; // White Knight
         board[0][2] = "b"; // White Bishop
@@ -27,10 +27,10 @@ public class ChessGame {
         board[0][7] = "r"; // White Rook
 
         for (int col = 0; col < 8; col++) {
-            board[1][col] = " "; // White Pawns
+            board[1][col] = "p"; // White Pawns
         }
 
-        // Initialize black pieces
+        // Black pieces
         board[7][0] = "R"; // Black Rook
         board[7][1] = "N"; // Black Knight
         board[7][2] = "B"; // Black Bishop
@@ -42,12 +42,14 @@ public class ChessGame {
 
 
         for (int col = 0; col < 8; col++) {
-            board[6][col] = " "; // Black Pawns
+            board[6][col] = "P"; // Black Pawns
         }
+
         //Testing the promotion
-        board[6][5] = "p";
-        board[1][5] = "P";
-        // Fill the remaining squares with empty squares
+        //board[6][5] = "p";
+        //board[1][5] = "P";
+
+        // Empty squares
         for (int row = 2; row < 6; row++) {
             for (int col = 0; col < 8; col++) {
                 board[row][col] = " "; // Empty square
@@ -58,14 +60,14 @@ public class ChessGame {
     public void displayBoard() {
         System.out.println("   a  b  c  d  e  f  g  h "); // Column labels
 
-        for (int row = 7; row >= 0; row--) { // Start from 7 (row 8) and go down to 0 (row 1)
-            System.out.print((row + 1) + " "); // Row label (add 1 to row to start from 1)
+        for (int row = 7; row >= 0; row--) { // Start from 7 = row 8 and go down to 0 = row 1
+            System.out.print((row + 1) + " "); // Row label add 1 to row to start from 1
 
             for (int col = 0; col < 8; col++) {
                 String piece = board[row][col];
                 System.out.print("|" + piece + "|");
             }
-            System.out.print(" " + (row + 1)); // Row label (right side)
+            System.out.print(" " + (row + 1)); // Row label right side
             System.out.println();
         }
 
@@ -74,7 +76,7 @@ public class ChessGame {
 
 
     private boolean isValidSquare(int row, int col) {
-        return row >= 0 && row < 8 && col >= 0 && col < 8;
+        return row < 0 || row >= 8 || col < 0 || col >= 8;
     }
 
     public void startNewGame() {
@@ -93,7 +95,7 @@ public class ChessGame {
             System.out.print("Enter the square/chess piece to move (e.g., 'e2'): ");
             String fromSquare = scanner.nextLine();
 
-            // Extract the row and column from 'fromSquare'
+            // Extract the row and column from fromSquare
             int fromRow, fromCol;
             try {
                 char columnChar = fromSquare.charAt(0);
@@ -113,7 +115,7 @@ public class ChessGame {
                 };
 
                 // Check if the extracted row and column values are within the valid range
-                if (!isValidSquare(fromRow, fromCol)) {
+                if (isValidSquare(fromRow, fromCol)) {
                     throw new IllegalArgumentException("Invalid row or column value.");
                 }
             } catch (Exception e) {
@@ -126,10 +128,10 @@ public class ChessGame {
 
             if ("Empty".equals(pieceType)) {
                 System.out.println("The selected square is empty. Please choose a square with a chess piece.");
-                continue; // Ask for input again
+                continue;
             } else if ("Opponent's Piece".equals(pieceType)) {
                 System.out.println("You can only move your own pieces.");
-                continue; // Ask for input again
+                continue;
             }
 
             System.out.println("You selected a " + pieceType + " on the square.");
@@ -158,12 +160,12 @@ public class ChessGame {
                 };
 
                 // Check if the extracted row and column values are within the valid range
-                if (!isValidSquare(toRow, toCol)) {
+                if (isValidSquare(toRow, toCol)) {
                     throw new IllegalArgumentException("Invalid row or column value.");
                 }
             } catch (Exception e) {
                 System.out.println("Invalid square format. Please enter a valid square (e.g., 'e2').");
-                continue; // Ask for input again
+                continue;
             }
 
             // Check if the selected piece can move to the destination square
@@ -173,7 +175,7 @@ public class ChessGame {
                 System.out.println("Valid move. The " + pieceType + " can move to " + toSquare + ".");
                 // Update the board
                 board[toRow][toCol] = board[fromRow][fromCol];
-                board[fromRow][fromCol] = " "; // Empty the old square
+                board[fromRow][fromCol] = " "; // Empty old square
                 if (toRow == 7 && board[toRow][toCol].equals("p")) {
                     promotePawn(toRow, toCol, board);
                 } else if (toRow == 0 && board[toRow][toCol].equals("P")) {
@@ -184,7 +186,7 @@ public class ChessGame {
                 continue; // Ask for input again
             }
 
-            // Toggle player turn
+            // Change players turn
             isWhiteTurn = !isWhiteTurn;
         }
     }
@@ -229,7 +231,7 @@ public class ChessGame {
     public String getPieceType(int row, int col, boolean isWhiteTurn) {
         String piece = board[row][col];
         if (piece != null && !piece.trim().isEmpty()) {
-            // Determine the piece color (uppercase for black, lowercase for white)
+            // Determine the piece color uppercase for black lowercase for white
             char pieceColor = Character.isUpperCase(piece.charAt(0)) ? 'B' : 'W';
 
             // Determine the current player's color
@@ -237,7 +239,7 @@ public class ChessGame {
 
             // Check if the square contains a piece of the current player's color
             if (pieceColor == currentPlayerColor) {
-                // If the square is not empty and belongs to the current player, return the type of piece
+                // If the square is not empty and belongs to the current player return the type of piece
                 switch (piece.toUpperCase()) {
                     case "P": return "Pawn";
                     case "R": return "Rook";
@@ -248,17 +250,13 @@ public class ChessGame {
                     default: return "Unknown";
                 }
             } else {
-                return "Opponent's Piece"; // Piece belongs to the opponent
+                return "Opponent's Piece";
             }
         }
         return "Empty";
     }
 
     private void promotePawn(int newRow, int newCol, String[][] board) {
-        System.out.println("______________________________________");
-        System.out.println(newCol);
-        System.out.println(newRow);
-        // Promote the pawn to a queen
         board[newRow][newCol] = isWhiteTurn ? "q" : "Q";
     }
 

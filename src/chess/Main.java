@@ -25,7 +25,7 @@ public class Main {
                     chessGame.startNewGame();
                     break;
                 case 2:
-                    // View saved games (implement this functionality)
+                    // View saved games
                     viewSavedGames();
                     break;
                 case 3:
@@ -42,7 +42,6 @@ public class Main {
 
 
     private static void viewSavedGames() {
-        // Implement the logic to view saved games
         System.out.println("Viewing saved games...");
     }
 }
