@@ -12,7 +12,7 @@ public class Pawn {
         int colChange = Math.abs(newCol - currentCol);
 
         if (isWhite) {
-            // White pawns move forward one or two squares from row 2 (index 1)
+            // White pawns move forward one or two squares from row 1 (index 0)
             if (currentRow == 1) {
                 if (rowChange == 1 || rowChange == 2) {
                     // Check if the square in front of the pawn is empty
@@ -38,7 +38,7 @@ public class Pawn {
                 }
             }
         } else {
-            // Black pawns move forward one or two squares from row 7 (index 6)
+            // Black pawns move forward one or two squares from row 6 (index 5)
             if (currentRow == 6) {
                 if (rowChange == -1 || rowChange == -2) {
                     // Check if the square in front of the pawn is empty
@@ -62,12 +62,9 @@ public class Pawn {
                 } else if (rowChange == -1 && colChange == 1 && Character.isLowerCase(board[newRow][newCol].charAt(0))) {
                     return true;
                 }
-
             }
         }
         return false;
     }
-
-
 
 }

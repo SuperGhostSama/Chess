@@ -27,7 +27,7 @@ public class ChessGame {
         board[0][7] = "r"; // White Rook
 
         for (int col = 0; col < 8; col++) {
-            board[1][col] = "p"; // White Pawns
+            board[1][col] = " "; // White Pawns
         }
 
         // Initialize black pieces
@@ -40,10 +40,13 @@ public class ChessGame {
         board[7][6] = "N"; // Black Knight
         board[7][7] = "R"; // Black Rook
 
-        for (int col = 0; col < 8; col++) {
-            board[6][col] = "P"; // Black Pawns
-        }
 
+        for (int col = 0; col < 8; col++) {
+            board[6][col] = " "; // Black Pawns
+        }
+        //Testing the promotion
+        board[6][5] = "p";
+        board[1][5] = "P";
         // Fill the remaining squares with empty squares
         for (int row = 2; row < 6; row++) {
             for (int col = 0; col < 8; col++) {
@@ -168,10 +171,14 @@ public class ChessGame {
 
             if (isValidMove) {
                 System.out.println("Valid move. The " + pieceType + " can move to " + toSquare + ".");
-                // Implement the move logic here
-                // Update the board based on the move
+                // Update the board
                 board[toRow][toCol] = board[fromRow][fromCol];
                 board[fromRow][fromCol] = " "; // Empty the old square
+                if (toRow == 7 && board[toRow][toCol].equals("p")) {
+                    promotePawn(toRow, toCol, board);
+                } else if (toRow == 0 && board[toRow][toCol].equals("P")) {
+                    promotePawn(toRow, toCol, board);
+                }
             } else {
                 System.out.println("Invalid move. The " + pieceType + " cannot move to " + toSquare + ".");
                 continue; // Ask for input again
@@ -247,6 +254,13 @@ public class ChessGame {
         return "Empty";
     }
 
+    private void promotePawn(int newRow, int newCol, String[][] board) {
+        System.out.println("______________________________________");
+        System.out.println(newCol);
+        System.out.println(newRow);
+        // Promote the pawn to a queen
+        board[newRow][newCol] = isWhiteTurn ? "q" : "Q";
+    }
 
 
 
