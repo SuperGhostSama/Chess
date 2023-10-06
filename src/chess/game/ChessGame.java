@@ -10,7 +10,6 @@ public class ChessGame {
     private boolean isWhiteTurn;
 
     public ChessGame() {
-        // Initialize the chessboard
         board = new String[8][8];
         setupInitialPosition();
     }
@@ -86,7 +85,7 @@ public class ChessGame {
         isWhiteTurn = true;
 
         while (true) {
-            displayBoard(); // Display the board before each player's turn
+            displayBoard();
 
             String playerColor = isWhiteTurn ? "White" : "Black";
             System.out.println(playerColor + " player's turn.");
@@ -193,7 +192,6 @@ public class ChessGame {
 
 
     private boolean isValidMove(int fromRow, int fromCol, int toRow, int toCol, String pieceType) {
-        // Check if the move is valid for the given chess piece type
         switch (pieceType) {
             case "Pawn" -> {
                 Pawn pawn = new Pawn(isWhiteTurn);
@@ -220,7 +218,7 @@ public class ChessGame {
                 return king.isValidMove(fromRow, fromCol, toRow, toCol, board);
             }
             default -> {
-                return false; // Unknown piece type or invalid move
+                return false;
             }
         }
     }
@@ -257,10 +255,21 @@ public class ChessGame {
     }
 
     private void promotePawn(int newRow, int newCol, String[][] board) {
-        board[newRow][newCol] = isWhiteTurn ? "q" : "Q";
+
+        if (eligibleToPromotion()){
+            board[newRow][newCol] = isWhiteTurn ? "q" : "Q";
+        }
+
     }
 
-
+    public boolean eligibleToPromotion(int newRow,int newCol , String[][] board ){
+        if (newRow == 7 && board[newRow][newCol].equals("p") ){
+            return true;
+        } else if (newRow == 0 && board[newRow][newCol].equals("P")) {
+            return true;
+        }
+        return false;
+    }
 
 
 }
